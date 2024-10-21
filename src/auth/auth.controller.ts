@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto } from './dtos/signup.dto';
 import { LoginDto } from './dtos/login.dto';
@@ -21,6 +21,10 @@ export class AuthController {
   async login(@Body() credentials: LoginDto) {
     return this.authService.login(credentials);
   }
+  @Get('users')// Nouvelle route pour récupérer les utilisateurs
+  async getUsers() {
+    return this.authService.getAllUsers();
+  }
 
   @Post('refresh')
   async refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
@@ -39,6 +43,7 @@ export class AuthController {
       changePasswordDto.newPassword,
     );
   }
+  
 
   @Post('forgot-password')
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {

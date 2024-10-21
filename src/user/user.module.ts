@@ -1,9 +1,10 @@
-// src/user/user.module.ts
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserService } from './user.service'; // Import du service utilisateur
+import { UserController } from './user.controller'; // Import du contrôleur utilisateur
 import { AuthService } from 'src/auth/auth.service';
 import { AuthController } from 'src/auth/auth.controller';
-import { UserSchema } from 'src/user/schemas/user.schema'; // Modèle d'utilisateur
+import { UserSchema } from './Schemas/user.schema'; // Modèle d'utilisateur
 import { RefreshTokenSchema } from 'src/auth/schemas/refresh-token.schema';
 import { ResetTokenSchema } from 'src/auth/schemas/reset-token.schema';
 import { MailModule } from 'src/services/mail.module'; // Module Mail
@@ -12,15 +13,15 @@ import { RolesModule } from 'src/roles/roles.module'; // Assurez-vous que ce che
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: 'user', schema: UserSchema }, // Modèle d'utilisateur
+      { name: 'user', schema: UserSchema }, // Modèle d'utilisateur - changer 'user' à 'User'
       { name: 'RefreshToken', schema: RefreshTokenSchema },
       { name: 'ResetToken', schema: ResetTokenSchema },
     ]),
-    MailModule,
-    RolesModule, // Importer le RolesModule ici
+    MailModule, // Module pour l'envoi d'emails
+    RolesModule, // Gestion des rôles
   ],
-  controllers: [AuthController],
-  providers: [AuthService],
-  exports: [AuthService, MongooseModule],
+  controllers: [UserController, AuthController], // Ajout du UserController et AuthController
+  providers: [UserService, AuthService], // Ajout des services UserService et AuthService
+  exports: [UserService, AuthService, MongooseModule], // Export des services nécessaires
 })
 export class UserModule {}

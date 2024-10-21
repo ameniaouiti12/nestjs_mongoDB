@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema, Types } from 'mongoose';
 
 @Schema({ timestamps: true }) // Ajout automatique des champs createdAt et updatedAt
-export class user extends Document {
+export class user extends Document {  // Changer 'user' à 'User'
   @Prop({ required: true })
   name: string; // Type corrigé (string)
 
@@ -17,4 +17,4 @@ export class user extends Document {
 }
 
 // Création du schéma Mongoose
-export const UserSchema = SchemaFactory.createForClass(user);
+export const UserSchema = SchemaFactory.createForClass(user);  // Changer 'user' à 'User'
