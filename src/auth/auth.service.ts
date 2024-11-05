@@ -7,7 +7,8 @@ import {
 } from '@nestjs/common';
 import { SignupDto } from 'src/auth/dtos/signup.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { user } from 'src/user/schemas/user.schema'; // Assurez-vous que le schéma de l'utilisateur est correctement importé
+import { user, UserSchema } from 'src/user/Schemas/user.schema'; 
+
 import mongoose, { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from 'src/auth/dtos/login.dto';
@@ -22,7 +23,7 @@ import { RolesService } from 'src/roles/roles.service';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(user.name) private UserModel: Model<user>,
+    @InjectModel('user') private UserModel: Model<user>,
     @InjectModel(RefreshToken.name) private RefreshTokenModel: Model<RefreshToken>,
     @InjectModel(ResetToken.name) private ResetTokenModel: Model<ResetToken>,
     private jwtService: JwtService,

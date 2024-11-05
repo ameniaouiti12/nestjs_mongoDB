@@ -1,0 +1,25 @@
+version: '1'
+services:
+  user-mangment-api:
+   build: .
+   ports : 
+   - 3000:3000
+   environment : 
+    - JWT_SECRET=secretkey
+    - MONGO_URL=mongodb://mongodb-service/mydatabase
+   networks:
+    - SIMvolume
+   depends_on:
+    - mongodb-service
+  mongodb-service:
+    image: mongo:5
+    ports:
+      - 3000:27017
+    volumes: 
+     - SIMvolume:/data/db
+    networks:
+     - SIMvolume
+volumes:
+ SIMvolume:
+networks:
+ SIMvolume:

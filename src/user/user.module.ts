@@ -4,7 +4,7 @@ import { UserService } from './user.service'; // Import du service utilisateur
 import { UserController } from './user.controller'; // Import du contrôleur utilisateur
 import { AuthService } from 'src/auth/auth.service';
 import { AuthController } from 'src/auth/auth.controller';
-import { UserSchema } from './Schemas/user.schema'; // Modèle d'utilisateur
+import { user, UserSchema } from 'src/user/Schemas/user.schema'; 
 import { RefreshTokenSchema } from 'src/auth/schemas/refresh-token.schema';
 import { ResetTokenSchema } from 'src/auth/schemas/reset-token.schema';
 import { MailModule } from 'src/services/mail.module'; // Module Mail
@@ -13,7 +13,7 @@ import { RolesModule } from 'src/roles/roles.module'; // Assurez-vous que ce che
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: 'user', schema: UserSchema }, // Modèle d'utilisateur - changer 'user' à 'User'
+      { name: 'user', schema: UserSchema },
       { name: 'RefreshToken', schema: RefreshTokenSchema },
       { name: 'ResetToken', schema: ResetTokenSchema },
     ]),

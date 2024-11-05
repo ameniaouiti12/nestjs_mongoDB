@@ -1,20 +1,15 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as MongooseSchema, Types } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
-@Schema({ timestamps: true }) // Ajout automatique des champs createdAt et updatedAt
-export class user extends Document {  // Changer 'user' à 'User'
-  @Prop({ required: true })
-  name: string; // Type corrigé (string)
-
-  @Prop({ required: true })
+export interface user extends Document {
+  name: string;
   email: string;
-
-  @Prop({ required: true })
   password: string;
-  
-  @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
-  roleId: Types.ObjectId;  // Ajout de roleId
+  roleId: string;
 }
 
-// Création du schéma Mongoose
-export const UserSchema = SchemaFactory.createForClass(user);  // Changer 'user' à 'User'
+export const UserSchema = new Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  roleId: { type: String, required: true },
+});
